@@ -1,0 +1,13 @@
+public static str costCenter()
+    {
+        str sql; // "select CostCenterValue from DimensionAttributeValueSet where recid = T1.DefaultDimension";
+
+        sql = @"SELECT
+    (case when exists (select CostCenterValue from DimensionAttributeValueSet where recid = T1.DefaultDimension)
+          then CostCenterValue
+          else ''
+     end) as 'CostCenterValue'
+FROM DimensionAttributeValueSet where recid = T1.DefaultDimension";
+
+        return sql;
+    }
