@@ -1,0 +1,25 @@
+    /// <summary>
+    /// Returns Cost Center display value associated to the Contract financial dimension (PurchAgreementHeader.DefaultDimension) 
+    /// </summary>
+    public static DimensionDisplayValue getCostCenterDisplayValue(PurchAgreementHeader _this)
+    {
+        DimensionAttributeValueSetStorage   davsStorage;
+        DimensionDisplayValue               costCenterValue;  
+            
+        if (_this.DefaultDimension)
+        {
+
+            davsStorage = DimensionAttributeValueSetStorage::find(_this.DefaultDimension);
+
+            for (var i= 1; i <= davsStorage.elements() ; i++)
+            {
+                // Change the string "CostCenter" to whatever financial dimension you want
+                if(DimensionAttribute::find(davsStorage.getAttributeByIndex(i)).Name == "CostCenter")
+                {
+                    costCenterValue = davsStorage.getDisplayValueByIndex(i);
+                }
+            }
+        }
+
+        return costCenterValue;
+    }
